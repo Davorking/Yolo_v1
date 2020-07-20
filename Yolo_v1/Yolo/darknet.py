@@ -36,7 +36,7 @@ class DarkNet(nn.Module):
     def forward(self, x):
         x = self.pool(self.lrelu(self.conv1(x)))
         x = self.pool(self.lrelu(self.conv2(x)))
-        x = self.pool(self.lrelu(self.conv6(self.conv5(self.conv4(self.conv(3))))))
+        x = self.pool(self.lrelu(self.conv6(self.conv5(self.conv4(self.conv3(x))))))
 
         x = self.conv8(self.conv7(x))
         x = self.conv10(self.conv9(x))
@@ -44,15 +44,14 @@ class DarkNet(nn.Module):
         x = self.conv14(self.conv13(x))
         x = self.pool(self.lrelu( self.conv16(self.conv15(x))))
 
-        x = self.conv18(conv17(x))
-        x = self.conv20(conv19(x))
-        x = self.lrelu(self.conv22(conv21(x)))
+        x = self.conv18(self.conv17(x))
+        x = self.conv20(self.conv19(x))
+        x = self.lrelu(self.conv22(self.conv21(x)))
 
-        x = self.lrelu(self.conv24(conv23(x)))
+        x = self.lrelu(self.conv24(self.conv23(x)))
 
         x = x.view(-1, 7 * 7 * 1024)
 
         x = F.relu(self.fc1(x))
-        x = self.fc2(x)
+        x = F.relu(self.fc2(x))
         return x
-
