@@ -21,8 +21,8 @@ def yolo_loss(output, label):
 #            show_img = torch.zeros([3, 448, 448])
 
             #Locate the Responsible Grid from the output label
-            print(type(obj[0]))
-            print(obj[0])
+#            print(type(obj[0]))
+#            print(obj[0])
             g_r = int(obj[0])
             g_c = int(obj[1])
             p_bb_data = temp[i][g_r][g_c]
@@ -55,7 +55,7 @@ def yolo_loss(output, label):
 
 
             loss_1 += lambda_coord * (torch.pow((obj[2] - p_l_bb_responsible[0]), 2) + torch.pow((obj[3] - p_l_bb_responsible[1]), 2))
-            print(type(obj))
+#            print(type(obj))
 
 #            loss_2 += lambda_coord * ( pow((torch.sqrt(obj_4)-torch.sqrt(p_l_bb_responsible_2)), 2) + 
 #                                      pow((torch.sqrt(obj_5)-torch.sqrt(p_l_bb_responsible_3)), 2) )
