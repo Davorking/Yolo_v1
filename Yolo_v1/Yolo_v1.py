@@ -23,7 +23,7 @@ transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
-trainset = torchvision.datasets.VOCDetection(root = data_download_path, year = '2007', image_set = 'train',
+trainset = torchvision.datasets.VOCDetection(root = data_download_path, year = '2012', image_set = 'train',
                                              download = True, transform = transform)
 
 trainsetloader = dataloader.VOC_DataLoader(trainset, batch_size = b_size)

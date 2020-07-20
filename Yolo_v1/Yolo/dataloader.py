@@ -25,8 +25,8 @@ def VOC_DataLoader(dataset, batch_size = 1, shuffle = False):
     for i, data in enumerate(dataset, 0):
 
         images, annotations = data
-        print(type(images))
-        print(type(annotations))
+#        print(type(images))
+#        print(type(annotations))
         t_anno_o = annotations['annotation']['object']
 
         t_image.append(images)
@@ -45,8 +45,8 @@ def VOC_DataLoader(dataset, batch_size = 1, shuffle = False):
                     t_label_index = classes.index(t_label)
                     break
 
-            print('\nBounding-box name: {}'.format(t_anno_n))
-            print('Bounding-box label index: {}'.format(t_label_index))
+#            print('\nBounding-box name: {}'.format(t_anno_n))
+#            print('Bounding-box label index: {}'.format(t_label_index))
 
             t_anno_size = annotations['annotation']['size']
             # Get the size of the original image
@@ -82,11 +82,11 @@ def VOC_DataLoader(dataset, batch_size = 1, shuffle = False):
             t_y_c_grid_s = t_y_s * 7 - t_grid_r
             t_x_c_grid_s = t_x_s * 7 - t_grid_c
 
-            print('Responsible grid square: (row: {}, col: {})'.format(
-                t_grid_r, t_grid_c))
-            print('Normalized center location inside the grid: (x_c: {}, y_c: {})'.format(
-                t_x_c_grid_s, t_y_c_grid_s))
-            print('Normalized bounding-box size: (width: {}, height: {})'.format(t_wid_bb_s, t_height_bb_s))
+#            print('Responsible grid square: (row: {}, col: {})'.format(
+#                t_grid_r, t_grid_c))
+#            print('Normalized center location inside the grid: (x_c: {}, y_c: {})'.format(
+#                t_x_c_grid_s, t_y_c_grid_s))
+#            print('Normalized bounding-box size: (width: {}, height: {})'.format(t_wid_bb_s, t_height_bb_s))
 
             # Calculate the bounding-box parameters in the resized image
 #            t_wid_bb = int(t_wid_bb_s * 448)
@@ -118,7 +118,7 @@ def VOC_DataLoader(dataset, batch_size = 1, shuffle = False):
 
             #Organize the label in the following order
             t_annotation_m = [t_grid_r, t_grid_c, t_x_c_grid_s, t_y_c_grid_s, t_wid_bb_s, t_height_bb_s, t_label_index]
-            torch.tensor(t_annotation_m, dtype = torch.float32)
+            t_annotation_m = torch.tensor(t_annotation_m, dtype = torch.float32)
             t_annotation_m_i.append(t_annotation_m)
 
             if t_anno_o.index(k) == len(t_anno_o)-1:
@@ -143,12 +143,15 @@ def VOC_DataLoader(dataset, batch_size = 1, shuffle = False):
             return_image.append(t_b_image)
             return_anno.append(t_b_annotation)
 
-            print(t_b_image.size())
-            print(t_b_annotation)
-            imshow(torchvision.utils.make_grid(t_b_image))
+#            print(t_b_image.size())
+#            print(t_b_annotation)
+#            imshow(torchvision.utils.make_grid(t_b_image))
 
             t_image = []
             t_out_annotation = []
+
+        if i % 500 == 499:
+            print('Dataloader processed: {}'.format(i+1))
 
 #        print(return_anno)
 #        print('Image size: {}'.format(images.size()))
