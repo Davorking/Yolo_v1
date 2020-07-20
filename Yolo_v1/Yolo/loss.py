@@ -3,8 +3,8 @@ import math
 
 def yolo_loss(output, label):
     temp = output.view(-1, 7, 7, 30)
-    print(temp.size())
-    print(len(label))
+ #   print(temp.size())
+ #   print(len(label))
     #define the parameters
     lambda_coord = 5
     lambda_noobj = 0.5
