@@ -21,7 +21,22 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Yolo\darknet.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Yolo\loss.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Yolo\dataloader.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Yolo\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Yolo_v1.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Yolo\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
