@@ -39,12 +39,12 @@ def yolo_loss(output, label):
             t_iou_1 = IOU(o_l_bb, p_l_bb_1)
             t_iou_2 = IOU(o_l_bb, p_l_bb_2)
 
-            print('o_l_bb: {}'.format(o_l_bb))
-            print('p_l_bb_1: {}'.format(p_l_bb_1))
-            print('p_l_bb_2: {}'.format(p_l_bb_2))
+#            print('o_l_bb: {}'.format(o_l_bb))
+#            print('p_l_bb_1: {}'.format(p_l_bb_1))
+#            print('p_l_bb_2: {}'.format(p_l_bb_2))
 
-            print('t_iou_1 = {}, t_iou_2 = {}'.format(t_iou_1, t_iou_2))
-            print('p_bb_data: {}'.format(p_bb_data))
+#            print('t_iou_1 = {}, t_iou_2 = {}'.format(t_iou_1, t_iou_2))
+#            print('p_bb_data: {}'.format(p_bb_data))
 
             if t_iou_1 > t_iou_2:
                 bb_responsible_c = t_iou_1
@@ -64,10 +64,10 @@ def yolo_loss(output, label):
             loss_2 += lambda_coord * ( torch.pow((torch.sqrt(obj[4])-torch.sqrt(p_l_bb_responsible[2])), 2) + 
                                       torch.pow((torch.sqrt(obj[5])-torch.sqrt(p_l_bb_responsible[3])), 2) )
 
-            print('torch.sqrt obj[4]: {}'.format(torch.sqrt(obj[4])))
-            print('torch.sqrt obj[5]: {}'.format(torch.sqrt(obj[5])))
-            print('torch.sqrt responsible[2]: {}'.format(torch.sqrt(p_l_bb_responsible[2])))
-            print('torch.sqrt responsible[3]: {}'.format(torch.sqrt(p_l_bb_responsible[3])))
+#            print('torch.sqrt obj[4]: {}'.format(torch.sqrt(obj[4])))
+#            print('torch.sqrt obj[5]: {}'.format(torch.sqrt(obj[5])))
+#            print('torch.sqrt responsible[2]: {}'.format(torch.sqrt(p_l_bb_responsible[2])))
+#            print('torch.sqrt responsible[3]: {}'.format(torch.sqrt(p_l_bb_responsible[3])))
 
 
             loss_3 += torch.pow((bb_responsible_c - p_l_bb_responsible[4]), 2)
@@ -91,15 +91,15 @@ def yolo_loss(output, label):
                     loss_4 += pow((p_bb_data[4] - 0), 2)
                     loss_4 += pow((p_bb_data[9] - 0), 2)
 
-        print('loss_1: {}'.format(loss_1))
-        print('loss_2: {}'.format(loss_2))
-        print('loss_3: {}'.format(loss_3))
-        print('loss_4: {}'.format(loss_4))
-        print('loss_5: {}'.format(loss_5))
+#        print('loss_1: {}'.format(loss_1))
+#        print('loss_2: {}'.format(loss_2))
+#        print('loss_3: {}'.format(loss_3))
+#        print('loss_4: {}'.format(loss_4))
+#        print('loss_5: {}'.format(loss_5))
         loss_whole += loss_1 + loss_2 + loss_3 + loss_4 + loss_5
 
         loss_whole.clone().detach().requires_grad_(True)
-        print('loss_whole: {}'.format(loss_whole))
+#        print('loss_whole: {}'.format(loss_whole))
 
     return loss_whole
 

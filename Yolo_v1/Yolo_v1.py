@@ -10,26 +10,36 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
+#The path and parameters needed to be specified depending on the device
+#where to download the dataset
+data_download_path = 'C:\\Users\\ASUS\\Desktop\\temp_data\\data\\'
+#where to save the model
+PATH = '.\\voc_net.pth'
+#batch size
+b_size = 16
+
 transform = transforms.Compose([
     transforms.Resize((448, 448)),
-    transforms.ToTensor()])
-#    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
-trainset = torchvision.datasets.VOCDetection(root = 'C:\\Users\\ASUS\\Desktop\\temp_data\\data\\', year = '2007', image_set = 'train',
+trainset = torchvision.datasets.VOCDetection(root = data_download_path, year = '2007', image_set = 'train',
                                              download = True, transform = transform)
 
-trainsetloader = dataloader.VOC_DataLoader(trainset, batch_size = 5)
+trainsetloader = dataloader.VOC_DataLoader(trainset, batch_size = b_size)
 
-net = LeNet()
+net = DarkNet()
 optimizer = optim.SGD(net.parameters(), lr = 0.001, momentum = 0.9)
 
 for epoch in range(2):
     running_loss = 0.0
     images = trainsetloader[0]
     annotations = trainsetloader[1]
+
     for i in range(len(images)):
         inputs, labels = images[i], annotations[i]
 
+        print('\nBatch No: {}'.format(i+1))
 #        print(labels)
         optimizer.zero_grad()
 
@@ -39,32 +49,12 @@ for epoch in range(2):
         optimizer.step()
 
         running_loss += loss_value.item()
-        if i % 50 == 49:
+#        print('running loss: {}'.format(loss_value.item()))
+
+        if i % 10 == 9:
             print('[%d, %5d] loss: %.3f' %
-                  (epoch + 1, i + 1, running_loss / 50))
+                  (epoch + 1, i + 1, running_loss / 10))
             running_loss = 0.0
 
 print('Finished Training')
-
-PATH = '.\\voc_net.pth'
 torch.save(net.state_dict(), PATH)
-
-#for i, data in enumerate(trainsetloader):
-#    images, labels = data[0], data[1]
-#    print(images.size())
-#    print(len(labels))
-
-#    print(images[0].size())
-#    print(len(label[0]))
- #   print(label[0])
-
-#    print(len(label))
-#Simulated ground-truth label with batch_size = 2
-#sim_label = [[[2, 3, 0.1, 0.2, 0.3, 0.4, 0.5], [3, 3, 0.2, 0.3, 0.4, 0.5, 0.6]], [[3, 4, 0.1, 0.3, 0.4, 0.5, 0.7]]]
-#Simulated predicted label with batch_size = 2
-#sim_output = torch.rand(2, 7 * 7 * 30)
-
-#loss_value = loss.yolo_loss(sim_output, sim_label)
-#print(type(loss_value))
-#print('loss: {}'.format(loss_value))
-
