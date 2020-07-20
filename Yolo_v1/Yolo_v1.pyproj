@@ -24,6 +24,9 @@
     <Compile Include="Yolo\darknet.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Yolo\lenet.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Yolo\loss.py">
       <SubType>Code</SubType>
     </Compile>
