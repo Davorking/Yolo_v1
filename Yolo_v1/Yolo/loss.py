@@ -1,5 +1,4 @@
 import torch
-import math
 
 def yolo_loss(output, label):
     temp = output.view(-1, 7, 7, 30)

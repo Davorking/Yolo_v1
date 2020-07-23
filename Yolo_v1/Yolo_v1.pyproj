@@ -36,6 +36,9 @@
     <Compile Include="Yolo\dataloader.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Yolo\weightloader.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Yolo\__init__.py">
       <SubType>Code</SubType>
     </Compile>

@@ -4,15 +4,15 @@ import torch.nn.functional as F
 class GoogLeNet(nn.Module):
     def __init__(self):
         super(GoogLeNet, self).__init__()
-        self.conv1 = nn.Conv2d(3, 64, 7, 2, padding = (3, 3))
-        self.conv2 = nn.Conv2d(64, 192, 3, padding = (1, 1))
-        self.conv3 = nn.Conv2d(192, 128, 1)
-        self.conv4 = nn.Conv2d(128, 256, 3, padding = (1, 1))
-        self.conv5 = nn.Conv2d(256, 256, 1)
-        self.conv6 = nn.Conv2d(256, 512, 3, padding = (1, 1))
-        self.conv7 = nn.Conv2d(512, 256, 1)
-        self.conv8 = nn.Conv2d(256, 512, 3, padding = (1, 1))
-        self.conv9 = nn.Conv2d(512, 256, 1)
+        self.conv01 = nn.Conv2d(3, 64, 7, 2, padding = (3, 3))
+        self.conv02 = nn.Conv2d(64, 192, 3, padding = (1, 1))
+        self.conv03 = nn.Conv2d(192, 128, 1)
+        self.conv04 = nn.Conv2d(128, 256, 3, padding = (1, 1))
+        self.conv05 = nn.Conv2d(256, 256, 1)
+        self.conv06 = nn.Conv2d(256, 512, 3, padding = (1, 1))
+        self.conv07 = nn.Conv2d(512, 256, 1)
+        self.conv08 = nn.Conv2d(256, 512, 3, padding = (1, 1))
+        self.conv09 = nn.Conv2d(512, 256, 1)
         self.conv10 = nn.Conv2d(256, 512, 3, padding = (1, 1))
         self.conv11 = nn.Conv2d(512, 256, 1)
         self.conv12 = nn.Conv2d(256, 512, 3, padding = (1, 1))
@@ -29,21 +29,18 @@ class GoogLeNet(nn.Module):
         self.lrelu = nn.LeakyReLU(0.1)
 
     def forward(self, x):
-        x = self.pool(self.lrelu(self.conv1(x)))
-        x = self.pool(self.lrelu(self.conv2(x)))
-        x = self.pool(self.lrelu(self.conv6(self.conv5(self.conv4(self.conv3(x))))))
+        x = self.pool(self.lrelu(self.conv01(x)))
+        x = self.pool(self.lrelu(self.conv02(x)))
+        x = self.pool(self.lrelu(self.conv06(self.conv05(self.conv04(self.conv03(x))))))
 
-        x = self.conv8(self.conv7(x))
-        x = self.conv10(self.conv9(x))
+        x = self.conv08(self.conv07(x))
+        x = self.conv10(self.conv09(x))
         x = self.conv12(self.conv11(x))
         x = self.conv14(self.conv13(x))
         x = self.pool(self.lrelu( self.conv16(self.conv15(x))))
 
-        x = self.conv18(self.conv17(x))
-        x = self.conv20(self.conv19(x))
-        x = self.lrelu(self.conv22(self.conv21(x)))
-
-        x = self.lrelu(self.conv24(self.conv23(x)))
+        x = self.lrelu(self.conv18(self.conv17(x)))
+        x = self.lrelu(self.conv20(self.conv19(x)))
 
         x = x.view(-1, 7 * 7 * 1024)
 
