@@ -2,7 +2,7 @@ import torch
 
 def yolo_loss(output, label):
     temp = output.view(-1, 7, 7, 30)
- #   print(temp.size())
+    print('The output label size is: {}'.format(temp.size()))
  #   print(len(label))
     #define the parameters
     lambda_coord = 5
@@ -25,6 +25,9 @@ def yolo_loss(output, label):
             g_r = int(obj[0])
             g_c = int(obj[1])
             p_bb_data = temp[i][g_r][g_c]
+
+            print('The predicted label is: {}'.format(p_bb_data))
+            print('The groud truth is: {}'.format(label[i]))
 
             #Parse the ground-truth label
             o_l_bb = bb_label_parser(obj[0], obj[1], obj[2], obj[3], obj[4], obj[5])
@@ -69,13 +72,13 @@ def yolo_loss(output, label):
 #            print('torch.sqrt responsible[3]: {}'.format(torch.sqrt(p_l_bb_responsible[3])))
 
 
-            loss_3 += torch.pow((bb_responsible_c - p_l_bb_responsible[4]), 2)
+            loss_3 = loss_3 + torch.pow((bb_responsible_c - p_l_bb_responsible[4]), 2)
 
             for j in range(0, int(obj[6])):
-                loss_5 += torch.pow((p_bb_data[10 + j] - 0), 2)
+                loss_5 = loss_5 + torch.pow((p_bb_data[10 + j] - 0), 2)
             for j in range(int(obj[6])+1, 20):
-                loss_5 += torch.pow((p_bb_data[10 + j] - 0), 2)
-            loss_5 += torch.pow((p_bb_data[10 + int(obj[6])] - 1), 2)
+                loss_5 = loss_5 + torch.pow((p_bb_data[10 + j] - 0), 2)
+            loss_5 = loss_5 + torch.pow((p_bb_data[10 + int(obj[6])] - 1), 2)
 
         for n_r in range (0, 7):
             for n_c in range (0, 7):
@@ -87,18 +90,18 @@ def yolo_loss(output, label):
 
                 if flag_no_obj:
                     p_bb_data = temp[i][n_r][n_c]
-                    loss_4 += pow((p_bb_data[4] - 0), 2)
-                    loss_4 += pow((p_bb_data[9] - 0), 2)
+                    loss_4 = loss_4 + torch.pow((p_bb_data[4] - 0), 2)
+                    loss_4 = loss_4 + torch.pow((p_bb_data[9] - 0), 2)
 
-#        print('loss_1: {}'.format(loss_1))
-#        print('loss_2: {}'.format(loss_2))
-#        print('loss_3: {}'.format(loss_3))
-#        print('loss_4: {}'.format(loss_4))
-#        print('loss_5: {}'.format(loss_5))
-        loss_whole += loss_1 + loss_2 + loss_3 + loss_4 + loss_5
+        print('loss_1: {}'.format(loss_1))
+        print('loss_2: {}'.format(loss_2))
+        print('loss_3: {}'.format(loss_3))
+        print('loss_4: {}'.format(loss_4))
+        print('loss_5: {}'.format(loss_5))
+        loss_whole = loss_whole + loss_1 + loss_2 + loss_3 + loss_4 + loss_5
 
-        loss_whole.clone().detach().requires_grad_(True)
-#        print('loss_whole: {}'.format(loss_whole))
+        loss_whole = loss_whole.clone().detach().requires_grad_(True)
+        print('loss_whole: {}'.format(loss_whole))
 
     return loss_whole
 
@@ -136,6 +139,20 @@ def IOU(o_l_bb, p_l_bb):
 
         
 def bb_label_parser(g_r, g_c, g_x_c, g_y_c, width, height):
+
+    if g_x_c != g_x_c:
+        g_x_c = 0
+
+    if g_y_c != g_y_c:
+        g_y_c = 0
+
+    if width != width:
+        width = 0
+    
+    if height != height:
+        height = 0
+
+
     t_x_c = (g_c + g_x_c) / 7 * 448.
     t_y_c = (g_r + g_y_c) / 7 * 448.
     t_width = width * 448.

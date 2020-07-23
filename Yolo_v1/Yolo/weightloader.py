@@ -24,7 +24,7 @@ def load_weights_upto(net, filename, cutoff = -1):
     if ((major*10 + minor) >= 2 and major < 1000 and minor < 1000):
         iseen = struct.unpack('i', fp.read(s_int))[0]
     else:
-        iseen = 0;
+        iseen = 0
         iseen = struct.unpack('i', fp.read(s_int))[0]
     transpose = True if ((major > 1000) or (minor > 1000)) else False
     #show the result 
@@ -35,6 +35,8 @@ def load_weights_upto(net, filename, cutoff = -1):
     t_l_bias = []
     t_l_weight = []
 
+#    print(test_dict)
+
     #In Case of the change being tracked by gradient
     with torch.no_grad():
         #iterate over the state_dict()
@@ -44,10 +46,12 @@ def load_weights_upto(net, filename, cutoff = -1):
 
     #Since the original code write the bias terms first, and model.state_dict() is opposite, change the loading order
             #if Convolutional layer
-            if key[0:2] == 'co': 
+#            if key[7:9] == 'co': 
+            if key[0:2] == 'co':
                 #the key start with 'co', end with 'ight', eg. conv01.weight.
                 if key[-4:] == 'ight':
                     print('\nProcessing convolutional layer\'s weights: ')
+#                    print('The Layer name is: {}'.format(key[7:13]))
                     print('The Layer name is: {}'.format(key[0:6]))
                     t_c_out = test_dict[key].shape[0]
                     t_c_in = test_dict[key].shape[1]
@@ -82,7 +86,7 @@ def load_weights_upto(net, filename, cutoff = -1):
                     print('Size of Bias loaded: {}'.format(test_dict[key].size()))
 
             #if Fully Connected layer
-            if key[0:2] == 'fc': 
+            if key[7:9] == 'fc': 
                 #the key start with 'fc', end with 'ight', eg. fc1.weight.
                 if key[-4:] == 'ight':
                     print('\nProcessing fully connected layer\'s weights: ')

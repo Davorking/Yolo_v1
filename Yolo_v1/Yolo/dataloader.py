@@ -30,6 +30,7 @@ def VOC_DataLoader(dataset, batch_size = 1, shuffle = False):
 #        print(type(annotations))
         t_anno_o = annotations['annotation']['object']
 
+#        images = images.to(device)
         t_image.append(images)
 
         #print('Annotation: ')
@@ -120,6 +121,7 @@ def VOC_DataLoader(dataset, batch_size = 1, shuffle = False):
             #Organize the label in the following order
             t_annotation_m = [t_grid_r, t_grid_c, t_x_c_grid_s, t_y_c_grid_s, t_wid_bb_s, t_height_bb_s, t_label_index]
             t_annotation_m = torch.tensor(t_annotation_m, dtype = torch.float32)
+#            t_annotation_m = t_annotation_m.to(device)
             t_annotation_m_i.append(t_annotation_m)
 
             if t_anno_o.index(k) == len(t_anno_o)-1:
@@ -141,8 +143,8 @@ def VOC_DataLoader(dataset, batch_size = 1, shuffle = False):
             t_b_image = torch.stack([t_image[j] for j in range(len(t_image))], dim = 0) 
             t_b_annotation = t_out_annotation
 
-            t_b_image = t_b_image.to(device)
-            t_b_image = t_b_annotation.to(device)
+#            t_b_image = t_b_image.to(device)
+#            t_b_annotation = t_b_annotation.to(device)
 
             return_image.append(t_b_image)
             return_anno.append(t_b_annotation)

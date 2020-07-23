@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>1752d730-b695-4c38-9dbb-41d05752171b</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Yolo_v1 (first phase)(lr 0.001).py</StartupFile>
+    <StartupFile>Yolo_v1_1_2.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -42,7 +42,7 @@
     <Compile Include="Yolo\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Yolo_v1 %28first phase%29%28lr 0.001%29.py" />
+    <Compile Include="Yolo_v1_1_2.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Yolo\" />
@@ -51,7 +51,7 @@
     <Content Include="readme.txt">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Yolo_v1 %28second phase%29%28lr 0.01 to 0.0001%29.py">
+    <Content Include="Yolo_v1_2_2.py">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>

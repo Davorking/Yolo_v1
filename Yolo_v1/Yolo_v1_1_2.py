@@ -11,17 +11,24 @@ from Yolo import weightloader
 import matplotlib.pyplot as plt
 import numpy as np
 
+#The parameter needs to be specified under Linux:
+#weightloader l: 49, 54.
+#Yolo_v1_1_2 l:  20, 23, 27.
+
 #The path and parameters needed to be specified depending on the device
 #where to access the dataset
-data_dataset_path = 'C:\\Users\\ASUS\\Desktop\\temp_data\\data\\'
+#data_dataset_path = '~/Laboratory/data'
+data_dataset_path = 'C:\\Users\\ASUS\\Desktop\\temp_data\\data'
 #where to find the pre-trained on ImageNet weight file
+#data_weight_path = '/root/Laboratory/data/extraction.conv.weights'
 data_weight_path = 'C:\\Users\\ASUS\\Desktop\\temp_data\\data\\Yolo_v1\\extraction.conv.weights'
 n_conv = 20
 #where to save the model
+#PATH = './yolo_darknet-phase_1.pth'
 PATH = '.\\yolo_darknet-phase_1.pth'
 
 #batch size
-b_size = 64
+b_size = 4
 
 transform = transforms.Compose([
     transforms.Resize((448, 448)),
@@ -29,7 +36,7 @@ transform = transforms.Compose([
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
 print('Start loading the data!')
-trainset = torchvision.datasets.VOCDetection(root = data_dataset_path, year = '2012', image_set = 'train',
+trainset = torchvision.datasets.VOCDetection(root = data_dataset_path, year = '2007', image_set = 'train',
                                              download = True, transform = transform)
 
 trainsetloader = dataloader.VOC_DataLoader(trainset, batch_size = b_size)
@@ -46,9 +53,9 @@ print('Start loading the convolutional layers\' weights')
 weightloader.load_weights_upto(net, data_weight_path, 20)
 
 #Freeze the loaded weights
-for i, param in enumerate(net.parameters(), 0):
-    if i < n_conv * 2:
-        param.requires_grad = False
+#for i, param in enumerate(net.parameters(), 0):
+#    if i < n_conv * 2:
+#        param.requires_grad = False
 
 optimizer = optim.SGD(net.parameters(), lr = 0.001, momentum = 0.9, weight_decay = 0.0005)
 
@@ -59,14 +66,22 @@ for epoch in range(15):
     annotations = trainsetloader[1]
 
     for i in range(len(images)):
-        inputs, labels = images[i], annotations[i]
+        b_labels = []
+        inputs, t_b_labels = images[i], annotations[i]
+        inputs = inputs.to(device)
+        for t_i_labels in t_b_labels:
+            b_m_labels = []
+            for t_i_m_labels in t_i_labels:
+                t_i_m_labels = t_i_m_labels.to(device)
+                b_m_labels.append(t_i_m_labels)
+            b_labels.append(b_m_labels)
 
 #        print('\nBatch No: {}'.format(i+1))
 #        print(labels)
         optimizer.zero_grad()
 
         outputs = net(inputs)
-        loss_value = loss.yolo_loss(outputs, labels)
+        loss_value = loss.yolo_loss(outputs, b_labels)
         loss_value.backward()
         optimizer.step()
 
