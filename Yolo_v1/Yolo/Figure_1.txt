@@ -1,0 +1,16 @@
+[
+{'name': ['chair'], 'pose': ['Frontal'], 'truncated': ['0'], 'difficult': ['0'], 
+'bndbox': {'xmin': ['73'], 'ymin': ['124'], 'xmax': ['106'], 'ymax': ['174']}}, 
+
+{'name': ['chair'], 'pose': ['Unspecified'], 'truncated': ['1'], 'difficult': ['1'], 
+'bndbox': {'xmin': ['26'], 'ymin': ['120'], 'xmax': ['58'], 'ymax': ['135']}},
+
+ {'name': ['car'], 'pose': ['Unspecified'], 'truncated': ['1'], 'difficult': ['0'], 
+'bndbox': {'xmin': ['146'], 'ymin': ['1'], 'xmax': ['210'], 'ymax': ['61']}}, 
+
+{'name': ['car'], 'pose': ['Unspecified'], 'truncated': ['1'], 'difficult': ['0'], 
+'bndbox': {'xmin': ['188'], 'ymin': ['1'], 'xmax': ['267'], 'ymax': ['53']}}, 
+
+{'name': ['bottle'], 'pose': ['Unspecified'], 'truncated': ['0'], 'difficult': ['0'], 
+'bndbox': {'xmin': ['23'], 'ymin': ['129'], 'xmax': ['125'], 'ymax': ['362']}}
+]

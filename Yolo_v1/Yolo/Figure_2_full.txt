@@ -1,0 +1,15 @@
+{
+'folder': 'VOC2007', 'filename': '000017.jpg', 
+
+'source': {'database': 'The VOC2007 Database', 'annotation': 'PASCAL VOC2007', 'image': 'flickr', 'flickrid': '228217974'}, 
+
+'owner': {'flickrid': 'genewolf', 'name': 'whiskey kitten'}, 
+
+'size': {'width': '480', 'height': '364', 'depth': '3'}, 
+
+'segmented': '0', 
+
+'object': [{'name': 'person', 'pose': 'Left', 'truncated': '0', 'difficult': '0', 'bndbox': {'xmin': '185', 'ymin': '62', 'xmax': '279', 'ymax': '199'}}, 
+{'name': 'horse', 'pose': 'Left', 'truncated': '0', 'difficult': '0', 'bndbox': {'xmin': '90', 'ymin': '78', 'xmax': '403', 'ymax': '336'}}]
+
+}

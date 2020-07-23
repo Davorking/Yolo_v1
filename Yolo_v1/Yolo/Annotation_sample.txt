@@ -1,0 +1,17 @@
+[{'name': ['bird'], 'pose': ['Frontal'], 'truncated': ['1'], 'difficult': ['0'],
+ 'bndbox': {'xmin': ['174'], 'ymin': ['210'], 'xmax': ['474'], 'ymax': ['371']}}, 
+
+{'name': ['bird'], 'pose': ['Right'], 'truncated': ['0'], 'difficult': ['0'], 
+'bndbox': {'xmin': ['299'], 'ymin': ['139'], 'xmax': ['356'], 'ymax': ['221']}}, 
+
+{'name': ['bird'], 'pose': ['Unspecified'], 'truncated': ['1'], 'difficult': ['1'], 
+'bndbox': {'xmin': ['444'], 'ymin': ['162'], 'xmax': ['500'], 'ymax': ['222']}}, 
+
+{'name': ['bird'], 'pose': ['Left'], 'truncated': ['0'], 'difficult': ['0'], 
+'bndbox': {'xmin': ['188'], 'ymin': ['116'], 'xmax': ['256'], 'ymax': ['199']}}, 
+
+{'name': ['bird'], 'pose': ['Unspecified'], 'truncated': ['0'], 'difficult': ['0'], 
+'bndbox': {'xmin': ['144'], 'ymin': ['140'], 'xmax': ['173'], 'ymax': ['188']}}, 
+
+{'name': ['bird'], 'pose': ['Left'], 'truncated': ['0'], 'difficult': ['0'], 
+'bndbox': {'xmin': ['1'], 'ymin': ['132'], 'xmax': ['93'], 'ymax': ['250']}}]

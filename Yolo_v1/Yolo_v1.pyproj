@@ -38,6 +38,15 @@
   <ItemGroup>
     <Folder Include="Yolo\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Yolo\Annotation_sample.txt" />
+    <Content Include="Yolo\Figure_1.png" />
+    <Content Include="Yolo\Figure_1.txt" />
+    <Content Include="Yolo\Figure_2.png" />
+    <Content Include="Yolo\Figure_2.txt" />
+    <Content Include="Yolo\Figure_2_full.txt" />
+    <Content Include="Yolo\Label_sample.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
        Visual Studio and specify your pre- and post-build commands in
