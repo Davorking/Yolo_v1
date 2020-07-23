@@ -29,7 +29,9 @@ class DarkNet(nn.Module):
         self.conv23 = nn.Conv2d(1024, 1024, 3, padding = (1, 1))
         self.conv24 = nn.Conv2d(1024, 1024, 3, padding = (1, 1))
         self.fc1 = nn.Linear(7 * 7 * 1024, 4096)
+        self.dropout = nn.Dropout(p = 0.5)
         self.fc2 = nn.Linear(4096, 7 * 7 * 30)
+
         self.pool = nn.MaxPool2d(2, 2)
         self.lrelu = nn.LeakyReLU(0.1)
 
@@ -52,6 +54,6 @@ class DarkNet(nn.Module):
 
         x = x.view(-1, 7 * 7 * 1024)
 
-        x = F.relu(self.fc1(x))
+        x = self.dropout(F.relu(self.fc1(x)))
         x = F.relu(self.fc2(x))
         return x

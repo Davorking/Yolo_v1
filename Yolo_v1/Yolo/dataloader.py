@@ -16,6 +16,7 @@ classes = ['aeroplane', 'bicycle', 'bird', 'boat',
           'sheep', 'sofa', 'train', 'tvmonitor']
 
 def VOC_DataLoader(dataset, batch_size = 1, shuffle = False):
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     return_anno = []
     return_image = []
     return_loader = []
@@ -139,6 +140,9 @@ def VOC_DataLoader(dataset, batch_size = 1, shuffle = False):
         if len(t_image) == batch_size or i == len(dataset) - 1:
             t_b_image = torch.stack([t_image[j] for j in range(len(t_image))], dim = 0) 
             t_b_annotation = t_out_annotation
+
+            t_b_image = t_b_image.to(device)
+            t_b_image = t_b_annotation.to(device)
 
             return_image.append(t_b_image)
             return_anno.append(t_b_annotation)
