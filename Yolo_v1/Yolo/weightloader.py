@@ -73,7 +73,14 @@ def load_weights_upto(net, filename, cutoff = -1):
                     t_t_weight = torch.tensor(t_l_weight, dtype = torch.float32)
                     t_t_weight = t_t_weight.view(t_c_out, t_c_in, t_c_k, t_c_k)
                     #load Weight term first
+                    #print(net.state_dict()[key])
+
                     net.state_dict()[key].copy_(t_t_weight)
+
+                    #print(net.state_dict()[key])
+
+                    #exit(0)
+
                     t_l_weight = []
                     print('Size of Weight loaded: {}'.format(test_dict[key].size()))
                 #the key start with 'co', end with 'bias', eg. conv01.bias.
@@ -83,6 +90,9 @@ def load_weights_upto(net, filename, cutoff = -1):
                     #load Bias term then
                     net.state_dict()[key].copy_(torch.tensor(t_l_bias, dtype = torch.float32))
                     t_l_bias = []
+
+#                    print(net.state_dict()[key])
+
                     print('Size of Bias loaded: {}'.format(test_dict[key].size()))
 
             #if Fully Connected layer

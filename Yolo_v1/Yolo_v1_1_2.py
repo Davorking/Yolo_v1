@@ -42,7 +42,12 @@ trainset = torchvision.datasets.VOCDetection(root = data_dataset_path, year = '2
 trainsetloader = dataloader.VOC_DataLoader(trainset, batch_size = b_size)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+
+      
 net = DarkNet()
+
+
 if torch.cuda.device_count() > 1:
   print("Let's use", torch.cuda.device_count(), "GPUs!")
   # dim = 0 [30, xxx] -> [10, ...], [10, ...], [10, ...] on 3 GPUs
@@ -96,4 +101,15 @@ for epoch in range(15):
 print('Finished Training!')
 torch.save(net.state_dict(), PATH)
 print('Successfully saved the model!')
+
+
+##m=nn.BatchNorm2d(2,affine=True)
+#input=torch.randn(1,2,3,4)
+#output=m(input)
+ 
+#print(input)
+#print(m.weight)
+#print(m.bias)
+#print(output)
+#print(output.size())
 
