@@ -30,28 +30,30 @@ PATH = '.\\yolo_darknet-phase_1.pth'
 #batch size
 b_size = 4
 
+#Define transform for the dataset
 transform = transforms.Compose([
     transforms.Resize((448, 448)),
     transforms.ToTensor(),
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
+#Load the dataset
 print('[INFO] Start loading the data!')
 trainset = torchvision.datasets.VOCDetection(root = data_dataset_path, year = '2007', image_set = 'train',
                                              download = True, transform = transform)
-
 trainsetloader = dataloader.VOC_DataLoader(trainset, batch_size = b_size)
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-      
+#Construct the Network
 net = DarkNet()
 
-
+#Check if there was multiple GPU available
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 if torch.cuda.device_count() > 1:
   print("[INFO] Let's use", torch.cuda.device_count(), "GPUs!")
   # dim = 0 [30, xxx] -> [10, ...], [10, ...], [10, ...] on 3 GPUs
   net = nn.DataParallel(net)
 net.to(device)
 
+#Loading the Pretrained-In-ImageNet weights provided by the author
 print('[INFO] Start loading the convolutional layers\' weights')
 weightloader.load_weights_upto(net, data_weight_path)
 
@@ -60,8 +62,10 @@ weightloader.load_weights_upto(net, data_weight_path)
 #    if i < n_conv * 2:
 #        param.requires_grad = False
 
+#Define learning rate, momentum, etc...
 optimizer = optim.SGD(net.parameters(), lr = 0.001, momentum = 0.9, weight_decay = 0.0005)
 
+#Training goes here
 print('Start Training (phase_1, total epoch: 15)')
 for epoch in range(15):
     running_loss = 0.0
@@ -71,6 +75,7 @@ for epoch in range(15):
     for i in range(len(images)):
         b_labels = []
         inputs, t_b_labels = images[i], annotations[i]
+        #load Data into the GPU
         inputs = inputs.to(device)
         for t_i_labels in t_b_labels:
             b_m_labels = []
@@ -96,9 +101,9 @@ for epoch in range(15):
                   (epoch + 1, i + 1, running_loss / 10))
             running_loss = 0.0
 
-print('Finished Training!')
+print('[INFO] Finished Training!')
 torch.save(net.state_dict(), PATH)
-print('Successfully saved the model!')
+print('[INFO] Successfully saved the model!')
 
 
 ##m=nn.BatchNorm2d(2,affine=True)

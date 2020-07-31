@@ -1,7 +1,7 @@
 import struct
 import torch
 
-#Since the weight file in Yolo official website is customized binary file, build the python version io
+#Since the weight file in Yolo official website is a customized binary file, build the python version io
 
 #Aims at building the python version of load_weight_upto in github/pjreddie/darknet/src/parse.c (line 1218)
 def load_weights_upto(net, filename):
@@ -52,7 +52,7 @@ def load_weights_upto(net, filename):
 #                    t_w = struct.unpack('f', fp.read(s_float))[0]
 #                    print(j)
 
-    #Since the original code write the bias terms first, and model.state_dict() is opposite, change the loading order
+    #Since the original code write the bias terms first, and model.state_dict() contains weight term first, change the loading order
             #if Convolutional layer
 #            if key[7:9] == 'co': 
             if key[0:2] == 'co':
