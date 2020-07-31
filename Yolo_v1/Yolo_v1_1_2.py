@@ -35,27 +35,25 @@ transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
-print('Start loading the data!')
+print('[INFO] Start loading the data!')
 trainset = torchvision.datasets.VOCDetection(root = data_dataset_path, year = '2007', image_set = 'train',
                                              download = True, transform = transform)
 
 trainsetloader = dataloader.VOC_DataLoader(trainset, batch_size = b_size)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
-
       
 net = DarkNet()
 
 
 if torch.cuda.device_count() > 1:
-  print("Let's use", torch.cuda.device_count(), "GPUs!")
+  print("[INFO] Let's use", torch.cuda.device_count(), "GPUs!")
   # dim = 0 [30, xxx] -> [10, ...], [10, ...], [10, ...] on 3 GPUs
   net = nn.DataParallel(net)
 net.to(device)
 
-print('Start loading the convolutional layers\' weights')
-weightloader.load_weights_upto(net, data_weight_path, 20)
+print('[INFO] Start loading the convolutional layers\' weights')
+weightloader.load_weights_upto(net, data_weight_path)
 
 #Freeze the loaded weights
 #for i, param in enumerate(net.parameters(), 0):

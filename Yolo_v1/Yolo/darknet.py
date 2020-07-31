@@ -6,8 +6,10 @@ class DarkNet(nn.Module):
         super(DarkNet, self).__init__()
         self.conv01 = nn.Conv2d(3, 64, 7, 2, padding = (3, 3))
         self.bn01 = nn.BatchNorm2d(num_features = 64)
+
         self.conv02 = nn.Conv2d(64, 192, 3, padding = (1, 1))
         self.bn02 = nn.BatchNorm2d(num_features = 192)
+
         self.conv03 = nn.Conv2d(192, 128, 1)
         self.bn03 = nn.BatchNorm2d(num_features = 128)
         self.conv04 = nn.Conv2d(128, 256, 3, padding = (1, 1))
@@ -16,6 +18,7 @@ class DarkNet(nn.Module):
         self.bn05 = nn.BatchNorm2d(num_features = 256)
         self.conv06 = nn.Conv2d(256, 512, 3, padding = (1, 1))
         self.bn06 = nn.BatchNorm2d(num_features = 512)
+        
         self.conv07 = nn.Conv2d(512, 256, 1)
         self.bn07 = nn.BatchNorm2d(num_features = 256)
         self.conv08 = nn.Conv2d(256, 512, 3, padding = (1, 1))
@@ -36,6 +39,7 @@ class DarkNet(nn.Module):
         self.bn15 = nn.BatchNorm2d(num_features = 512)
         self.conv16 = nn.Conv2d(512, 1024, 3, padding = (1, 1))
         self.bn16 = nn.BatchNorm2d(num_features = 1024)
+
         self.conv17 = nn.Conv2d(1024, 512, 1)
         self.bn17 = nn.BatchNorm2d(num_features = 512)
         self.conv18 = nn.Conv2d(512, 1024, 3, padding = (1, 1))
@@ -44,6 +48,7 @@ class DarkNet(nn.Module):
         self.bn19 = nn.BatchNorm2d(num_features = 512)
         self.conv20 = nn.Conv2d(512, 1024, 3, padding = (1, 1))
         self.bn20 = nn.BatchNorm2d(num_features = 1024)
+
         self.conv21 = nn.Conv2d(1024, 1024, 3, padding = (1, 1))
         self.bn21 = nn.BatchNorm2d(num_features = 1024)
         self.conv22 = nn.Conv2d(1024, 1024, 3, 2, padding = (1, 1))
