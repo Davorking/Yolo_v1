@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>1752d730-b695-4c38-9dbb-41d05752171b</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Yolo_v1_1_2.py</StartupFile>
+    <StartupFile>test.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,6 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="test.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Yolo\darknet.py">
       <SubType>Code</SubType>
     </Compile>
